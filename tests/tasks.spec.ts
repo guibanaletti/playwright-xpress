@@ -2,13 +2,11 @@ import { expect, test } from '@playwright/test'
 import { TaskModel } from './fixtures/task.model'
 import { deleteTaskByHelper, postTask } from './support/helpers'
 import { TasksPage } from './support/pages/tasks'
+import data from './fixtures/tasks.json'
 
 
 test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
-    const task: TaskModel = {
-        name: 'Ler um livro de TypeScript',
-        is_done: false
-    }
+    const task = data.success as TaskModel
 
     await deleteTaskByHelper(request, task.name)
 
@@ -21,10 +19,7 @@ test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
 })
 
 test('Não deve permitir tarefa duplicada', async ({ page, request }) => {
-    const task: TaskModel = {
-        name: 'Ler um livro de JavaScript',
-        is_done: false
-    }
+    const task = data.duplicate as TaskModel
 
     await deleteTaskByHelper(request, task.name)
     await postTask(request, task)
@@ -38,10 +33,8 @@ test('Não deve permitir tarefa duplicada', async ({ page, request }) => {
 })
 
 test('Campo obrigatório', async ({ page }) => {
-    const task: TaskModel = {
-        name: '',
-        is_done: false
-    }
+    const task = data.required as TaskModel
+
     const tasksPage: TasksPage = new TasksPage(page)
 
     await tasksPage.go()
