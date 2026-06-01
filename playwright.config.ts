@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+require('dotenv').config()
+
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -30,7 +33,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: true
+    headless: true,
+    baseURL: process.env.BASE_URL
   },
 
   /* Configure projects for major browsers */
