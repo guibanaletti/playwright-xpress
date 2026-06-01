@@ -34,7 +34,6 @@ export class TasksPage {
     async alertHaveText(text: string) {
         const target = this.page.locator('.swal2-html-container')
         await expect(target).toHaveText(text)
-
     }
 
     async shouldBeDone(taskName: string) {
